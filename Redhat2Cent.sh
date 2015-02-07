@@ -1,5 +1,5 @@
 #!/bin/bash
-# written by eastsideslc 2-7-2015. Version 1.2
+# written by eastsideslc 2-7-2015. Version 1.3
 
 tarloc=/tmp/Redhat2Cent
 
@@ -70,7 +70,6 @@ if [ -f /usr/bin/lsb_release ];
                 if [ -f /etc/issue ];
                                         then
                                                 osver=`egrep -o '[0-9.]{1,}' /etc/issue|awk -F . '{print $1}'`
-                                                echo $osver
                                         else
                                                 echo "This OS is not Redhat 5 or 6. Exiting."
                                                 exit
