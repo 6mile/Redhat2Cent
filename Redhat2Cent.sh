@@ -22,6 +22,7 @@ echo
 yum clean all
 echo "cloning latest Redhat2Cent from github.  These files will reside in /tmp/Redhat2Cent/centos_migration/"
 git clone https://github.com/eastsideslc/Redhat2Cent/ /tmp/Redhat2Cent/
+chmod -R 744 /tmp/Redhat2Cent/
 if [ -f /tmp/Redhat2Cent/centos_migration/centos_migration_files.tgz ];
         then
                 mkdir /tmp/centos_migration
