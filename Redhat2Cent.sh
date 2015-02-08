@@ -53,13 +53,27 @@ if [ ! -f /usr/share/gdm/themes/RHEL ];
 fi
 }
 
-remove_RHN_6 () {
-        echo "Redhat 6 funcitonality not here yet."
-}
 
 migratecent_6 () {
-        echo "Redhat 6 funcitonality not here yet."
+echo "Installing EPEL 6 repo..."
+rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+echo "The next step will remove this server from the RHN service and remove all Redhat packages"
+rpm -e --nodeps redhat-release-server
+rpm -e --nodeps redhat-release
+rpm -e --nodeps redhat-indexhtml
+yum remove rhnlib abrt-plugin-bugzilla redhat-release-notes*
+
+echo "Installing Cent packages..."
+rpm -Uvh http://mirror.centos.org/centos/6/os/x86_64/Packages/centos-release-6-6.el6.centos.12.2.x86_64.rpm
+rpm -Uvh http://mirror.centos.org/centos/6/os/x86_64/Packages/centos-indexhtml-6-2.el6.centos.noarch.rpm
+rpm -Uvh http://mirror.centos.org/centos/6/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.30-30.el6.noarch.rpm
+rpm -Uvh http://mirror.centos.org/centos/6/os/x86_64/Packages/yum-3.2.29-60.el6.centos.noarch.rpm
+echo "Cleaning yum DB..."
+yum clean all
+yum upgrade
+echo "Finished!"
 }
+
 
 if [ `whoami` = root ]; then echo "Running as root...";else echo "you must be root to run this script";exit;fi
 echo "Determining Redhat version..."
@@ -86,8 +100,8 @@ if [ $readvar = "yes" ] && [ $osver -eq 5 ];
 elif [ $readvar = "yes" ] && [ $osver -eq 6 ];
         then
                 echo "Migration to CentOS from Redhat 6 will start now..."
-                remove_RHN_6
-                migratecent_6
+                                migratecent_6
         exit
 fi
+
 
